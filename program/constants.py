@@ -8,12 +8,12 @@ from decouple import config
 MODE = "DEVELOPMENT"
 
 #Close all open positions and orders. Trigger that if we set it will close all open positions if True; if false it won't
-ABORT_ALL_POSITIONS = False
+ABORT_ALL_POSITIONS = True
 
-#Find Cointegrated Pairs. Tell bot to do a fresh view of what pairs are cointegrated
+#Find Cointegrated Pairs for trading and store them. Tell bot to do a fresh view of what pairs are cointegrated
 FIND_COINTEGRATED = True
 
-# Manage Exits
+# Manage Exits based on logic (has z scored crossed over to the other side over and above the value that iw as ont the side)
 MANAGE_EXITS = True
 
 # Place Trades; true if we want to place trades
@@ -27,8 +27,8 @@ WINDOW = 21
 
 #Thresholds - Opening a Trade. 50 USD per trade. USD_MIN_COLLATERAL should be around the balance in the account
 MAX_HALF_LIFE = 24
-ZSCORE_THRESH = 1.5
-USD_PER_TRADE = 50
+ZSCORE_THRESH = 1.5 #z-score should be a minimum 1.5 or -1.5 to consider placing a trade
+USD_PER_TRADE = 100
 USD_MIN_COLLATERAL = 1880
 
 #Thresholds for Closing

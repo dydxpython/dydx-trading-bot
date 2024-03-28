@@ -6,6 +6,31 @@ import time
 
 from pprint import pprint
 
+
+#Get existing open positions
+def is_open_positions(client, market):
+
+    #Protect API
+    time.sleep(0.2)
+
+    #Get positions
+    all_positions = client.private.get_positions(market=market, status="OPEN")
+
+    #Determine if open
+    if len(all_positions.data["positions"]) > 0:
+        return True #This means there must be open positions for that market
+    else:
+        return False
+
+#Check order status; this function returns an order status by passing in the client and the order ID.
+def check_order_status(client, order_id):
+    order = client.private.get_order_by_id(order_id)
+    #There might not be a status for an order if something potentially fails
+    if order.data:
+        if "order" in order.data.keys():
+            return order.data["order"]["status"]
+    return "FAILED"
+
 #Place market order
 def place_market_order(client, market, side, size, price, reduce_only):
     # Get Position Id
@@ -32,6 +57,8 @@ def place_market_order(client, market, side, size, price, reduce_only):
         reduce_only=reduce_only
         # By changing this from False (which we used for buying) to True (if we sell) it knew to close the existing open position.
     )
+
+    # print(placed_order.data)
 
     # Return result
     return placed_order.data
