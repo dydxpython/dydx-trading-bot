@@ -8,7 +8,7 @@ from decouple import config
 MODE = "DEVELOPMENT"
 
 #Close all open positions and orders. Trigger that if we set it will close all open positions if True; if false it won't
-ABORT_ALL_POSITIONS = True
+ABORT_ALL_POSITIONS = True #Recommendation: True in testnet; False in Production once you gain confidence in the bot
 
 #Find Cointegrated Pairs for trading and store them. Tell bot to do a fresh view of what pairs are cointegrated
 FIND_COINTEGRATED = True
